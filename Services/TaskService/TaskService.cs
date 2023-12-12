@@ -19,7 +19,12 @@ namespace todolist_dotnet.Services.TaskService
             //_mapper = mapper;
         }
 
-        public Task<ServiceResponse<GetTaskDto>> GetCharacterById(int id)
+        public Task<ServiceResponse<GetTaskDto>> GetAllTasks()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ServiceResponse<GetTaskDto>> GetTaskById(int id)
         {
             throw new NotImplementedException();
         }

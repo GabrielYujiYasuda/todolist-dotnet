@@ -15,17 +15,17 @@ namespace todolist_dotnet.Controllers
     [Route("api/[controller]")]
     public class TaskController : ControllerBase
     {
-        // private readonly ITaskService _taskService;
+        private readonly ITaskService _taskService;
         
-        // public TaskController(ITaskService taskService)
-        // {
-        //     _taskService = taskService;
-        // }
+        public TaskController(ITaskService taskService)
+        {
+            _taskService = taskService;
+        }
 
-        // [HttpGet("GetAll")]
-        // public async Task<ActionResult<ServiceResponse<GetTaskDto>>> GetSingle() 
-        // {
-        //     return Ok(await _taskService.GetTaskById());
-        // }
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<ServiceResponse<GetTaskDto>>> GetAll() 
+        {
+            return Ok(await _taskService.GetAllTasks());
+        }
     }
 }
