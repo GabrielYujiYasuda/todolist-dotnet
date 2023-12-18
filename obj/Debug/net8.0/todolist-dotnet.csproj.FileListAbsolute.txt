@@ -136,3 +136,5 @@
 /home/yuji/dev/todolist-dotnet/obj/Debug/net8.0/todolist-dotnet.pdb
 /home/yuji/dev/todolist-dotnet/obj/Debug/net8.0/todolist-dotnet.genruntimeconfig.cache
 /home/yuji/dev/todolist-dotnet/obj/Debug/net8.0/ref/todolist-dotnet.dll
+/home/yuji/dev/todolist-dotnet/bin/Debug/net8.0/AutoMapper.dll
+/home/yuji/dev/todolist-dotnet/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -10,7 +10,7 @@ namespace todolist_dotnet.Services.TaskService
     public interface ITaskService
     {
         Task<ServiceResponse<GetTaskDto>> GetTaskById(int id);
-        Task<ServiceResponse<GetTaskDto>> GetAllTasks();
+        Task<ServiceResponse<List<GetTaskDto>>> GetAllTasks();
 
     }
 }
