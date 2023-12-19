@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace todolist_dotnet.Models
+namespace todolist_dotnet.Dtos
 {
-    public class TaskModel
+    public class AddTaskDto
     {
-        public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }

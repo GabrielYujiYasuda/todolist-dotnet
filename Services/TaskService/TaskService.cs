@@ -20,14 +20,21 @@ namespace todolist_dotnet.Services.TaskService
         public async Task<ServiceResponse<List<GetTaskDto>>> GetAllTasks()
         {
             var serviceResponse = new ServiceResponse<List<GetTaskDto>>();
-            serviceResponse.Data = _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToList();
+            var allTaskList =  _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToList();
+
+            serviceResponse.Data = allTaskList;
 
             return serviceResponse;
         }
 
-        public Task<ServiceResponse<GetTaskDto>> GetTaskById(int id)
+        public async Task<ServiceResponse<GetTaskDto>> GetTaskById(int id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetTaskDto>>();
+            var charById = await _context.Tasks.FirstOrDefaultAsync(t => t.ID == id);
+
+            serviceResponse.Data = _mapper.Map<GetTaskDto>(charById);
+
+            return serviceResponse;
         }
     }
 }

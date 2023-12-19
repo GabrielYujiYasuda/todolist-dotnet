@@ -11,6 +11,5 @@ namespace todolist_dotnet.Services.TaskService
     {
         Task<ServiceResponse<GetTaskDto>> GetTaskById(int id);
         Task<ServiceResponse<List<GetTaskDto>>> GetAllTasks();
-
     }
 }
