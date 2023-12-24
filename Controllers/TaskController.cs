@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using todolist_dotnet.Dtos.TaskDto;
@@ -26,6 +28,12 @@ namespace todolist_dotnet.Controllers
         public async Task<ActionResult<ServiceResponse<GetTaskDto>>> GetAll() 
         {
             return Ok(await _taskService.GetAllTasks());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetTaskDto>> GetTaskById(int id) 
+        {
+            return Ok(await _taskService.GetTaskById(id));
         }
     }
 }
