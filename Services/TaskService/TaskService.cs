@@ -18,9 +18,17 @@ namespace todolist_dotnet.Services.TaskService
             _mapper = mapper;
         }
 
-        public Task<ServiceResponse<List<AddTaskDto>>> AddTask()
+        public async Task<ServiceResponse<List<GetTaskDto>>> AddTask(AddTaskDto newTask)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetTaskDto>>();
+            var task = _mapper.Map<TaskModel>(newTask);
+
+            _context.Tasks.Add(task);
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Data = await _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToListAsync();
+
+            return serviceResponse;
         }
 
         public Task<ServiceResponse<List<GetTaskDto>>> DeleteTask(int id)
@@ -31,9 +39,9 @@ namespace todolist_dotnet.Services.TaskService
         public async Task<ServiceResponse<List<GetTaskDto>>> GetAllTasks()
         {
             var serviceResponse = new ServiceResponse<List<GetTaskDto>>();
-            var allTaskList = _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToList();
+            var allTaskList = _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToListAsync();
 
-            serviceResponse.Data = allTaskList;
+            serviceResponse.Data = await allTaskList;
 
             return serviceResponse;
         }

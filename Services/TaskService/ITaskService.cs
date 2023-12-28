@@ -12,7 +12,7 @@ namespace todolist_dotnet.Services.TaskService
     {
         Task<ServiceResponse<GetTaskDto>> GetTaskById(int id);
         Task<ServiceResponse<List<GetTaskDto>>> GetAllTasks();
-        Task<ServiceResponse<List<AddTaskDto>>> AddTask();
+        Task<ServiceResponse<List<GetTaskDto>>> AddTask(AddTaskDto newTask);
         Task<ServiceResponse<List<GetTaskDto>>> DeleteTask(int id);
         Task<ServiceResponse<GetTaskDto>> UpdateTask(int id);
         

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using todolist_dotnet.Dtos;
 using todolist_dotnet.Dtos.TaskDto;
 using todolist_dotnet.Models;
 using todolist_dotnet.Services.TaskService;
@@ -31,9 +32,15 @@ namespace todolist_dotnet.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetTaskDto>> GetTaskById(int id) 
+        public async Task<ActionResult<ServiceResponse<GetTaskDto>>> GetTaskById(int id) 
         {
             return Ok(await _taskService.GetTaskById(id));
+        }
+        
+        [HttpPost("Add")]
+        public async Task<ActionResult<ServiceResponse<GetTaskDto>>> AddTask(AddTaskDto newTask) 
+        {
+            return Ok(await _taskService.AddTask(newTask));
         }
     }
 }
