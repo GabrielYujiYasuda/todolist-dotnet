@@ -42,5 +42,17 @@ namespace todolist_dotnet.Controllers
         {
             return Ok(await _taskService.AddTask(newTask));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetTaskDto>>> DeleteTask(int id)
+        {
+            var response = await _taskService.DeleteTask(id);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }

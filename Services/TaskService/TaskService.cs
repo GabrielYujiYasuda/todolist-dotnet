@@ -31,9 +31,23 @@ namespace todolist_dotnet.Services.TaskService
             return serviceResponse;
         }
 
-        public Task<ServiceResponse<List<GetTaskDto>>> DeleteTask(int id)
+        public async Task<ServiceResponse<List<GetTaskDto>>> DeleteTask(int id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetTaskDto>>();
+            var deletedTask = await _context.Tasks.FirstOrDefaultAsync(t => t.ID == id);
+
+            if (deletedTask is null)
+            {
+                throw new Exception($"Task with ID: {id} not found.");
+            }
+
+            _context.Tasks.Remove(deletedTask);
+            await _context.SaveChangesAsync();
+
+            var allTaskList = _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToListAsync();
+            serviceResponse.Data = await allTaskList;
+
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<List<GetTaskDto>>> GetAllTasks()
