@@ -44,8 +44,7 @@ namespace todolist_dotnet.Services.TaskService
             _context.Tasks.Remove(deletedTask);
             await _context.SaveChangesAsync();
 
-            var allTaskList = _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToListAsync();
-            serviceResponse.Data = await allTaskList;
+            serviceResponse.Data = await _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToListAsync();;
 
             return serviceResponse;
         }
@@ -53,9 +52,7 @@ namespace todolist_dotnet.Services.TaskService
         public async Task<ServiceResponse<List<GetTaskDto>>> GetAllTasks()
         {
             var serviceResponse = new ServiceResponse<List<GetTaskDto>>();
-            var allTaskList = _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToListAsync();
-
-            serviceResponse.Data = await allTaskList;
+            serviceResponse.Data = await _context.Tasks.Select(t => _mapper.Map<GetTaskDto>(t)).ToListAsync();;
 
             return serviceResponse;
         }
@@ -70,9 +67,25 @@ namespace todolist_dotnet.Services.TaskService
             return serviceResponse;
         }
 
-        public Task<ServiceResponse<GetTaskDto>> UpdateTask(int id)
+        public async Task<ServiceResponse<GetTaskDto>> UpdateTask(UpdateTaskDto updatedTask, int id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<GetTaskDto>();
+            var charById = await _context.Tasks.FirstOrDefaultAsync(t => t.ID == id);
+
+            if (charById is null)
+            {
+                throw new Exception($"Task with ID: {id} not found.");
+            }
+
+            charById.Name = updatedTask.Name;
+            charById.Description = updatedTask.Description;
+            charById.IsComplete = updatedTask.IsComplete;
+
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Data = _mapper.Map<GetTaskDto>(charById);
+
+            return serviceResponse;
         }
     }
 }

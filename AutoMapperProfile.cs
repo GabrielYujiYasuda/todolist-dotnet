@@ -14,6 +14,7 @@ namespace todolist_dotnet
         {
             CreateMap<TaskModel, GetTaskDto>();
             CreateMap<AddTaskDto, TaskModel>();
+            CreateMap<UpdateTaskDto, TaskModel>();
         }
     }
 }

@@ -54,5 +54,18 @@ namespace todolist_dotnet.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPut("Update")]
+        public async Task<ActionResult<ServiceResponse<GetTaskDto>>> UpdateTask(UpdateTaskDto updatedTask, int id)
+        {
+            var response = await _taskService.UpdateTask(updatedTask, id);
+
+            if (response is null)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
     }
 }
