@@ -70,20 +70,22 @@ namespace todolist_dotnet.Services.TaskService
         public async Task<ServiceResponse<GetTaskDto>> UpdateTask(UpdateTaskDto updatedTask, int id)
         {
             var serviceResponse = new ServiceResponse<GetTaskDto>();
-            var charById = await _context.Tasks.FirstOrDefaultAsync(t => t.ID == id);
+            var taskById = await _context.Tasks.FirstOrDefaultAsync(t => t.ID == id);
 
-            if (charById is null)
+            if (taskById is null)
             {
                 throw new Exception($"Task with ID: {id} not found.");
             }
 
-            charById.Name = updatedTask.Name;
-            charById.Description = updatedTask.Description;
-            charById.IsComplete = updatedTask.IsComplete;
+            taskById.Name = updatedTask.Name;
+            taskById.Description = updatedTask.Description;
+            taskById.IsComplete = updatedTask.IsComplete;
 
             await _context.SaveChangesAsync();
 
-            serviceResponse.Data = _mapper.Map<GetTaskDto>(charById);
+            var taskMapped = _mapper.Map<GetTaskDto>(taskById);
+
+            serviceResponse.Data = taskMapped;
 
             return serviceResponse;
         }
